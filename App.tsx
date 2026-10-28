@@ -1,56 +1,55 @@
+
 import { View, Text, StyleSheet } from 'react-native';
 
-const produits = [
-  { id: 1, nom: 'Clavier', prix: 120, stock: 5 },
-  { id: 2, nom: 'Souris', prix: 80, stock: 8 },
-  { id: 3, nom: 'Écran', prix: 900, stock: 0 },
-  { id: 4, nom: 'Casque', prix: 240, stock: 3 },
+const etudiants = [
+  { id: 1, nom: 'Amine', note: 16 },
+  { id: 2, nom: 'Youssef', note: 8 },
+  { id: 3, nom: 'Salma', note: 14 },
+  { id: 4, nom: 'Omar', note: 12 },
 ];
 
+const total = etudiants.reduce((s, e) => s + e.note, 0);
+const moyenne = total / etudiants.length;
+
 export default function App() {
-  const produitsDisponibles = produits.filter(
-    produit => produit.stock > 0
-  );
-
-  const nombreProduits = produitsDisponibles.length;
-
-  const valeurTotale = produits.reduce(
-    (total, produit) => total + produit.prix * produit.stock,
-    0
-  );
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.titre}>Catalogue des produits</Text>
+    <View style={styles.ecran}>
+      <Text style={styles.titre}>Notes des étudiants</Text>
 
-      <Text style={styles.texte}>
-        Nombre de produits disponibles : {nombreProduits}
+      <Text style={styles.moyenne}>
+        Moyenne : {moyenne}/20
       </Text>
 
-      <Text style={styles.texte}>
-        Valeur totale du stock : {valeurTotale} MAD
-      </Text>
+      {etudiants.map((e) => (
+        <Text key={e.id} style={styles.ligne}>
+          {e.nom} : {e.note}/20
+        </Text>
+      ))}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  ecran: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
+    padding: 26,
     backgroundColor: '#F2F7FD',
   },
   titre: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#003796',
-    marginBottom: 25,
+    color: '#00235C',
+    marginBottom: 16,
   },
-  texte: {
-    fontSize: 18,
-    marginBottom: 15,
-    textAlign: 'center',
+  moyenne: {
+    fontSize: 19,
+    marginBottom: 20,
+    color: '#003796',
+  },
+  ligne: {
+    fontSize: 17,
+    paddingVertical: 8,
+    color: '#00235C',
   },
 });
